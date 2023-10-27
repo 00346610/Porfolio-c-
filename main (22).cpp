@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+#include <iomanip>
+#include<cmath>
+#include <string>
+int main()
+{
+//used string so input won't get cut of also used getline too so nothing can beleftout
+double serviceCost,tip,bil;
+string serverName;
+
+cout<<"\tServer Name: ";
+getline(cin,serverName);
+cout<<"\tService Cost: $";
+cin>>serviceCost;
+//set precision so only two decimal can be shown and set tip with doubleforaccuracy as well
+// also made tip= tip/100
+cout<<fixed<<setprecision(2);
+cout<<"\tTip Percentage: (10% ,15% or 20%) = ";
+//set the value of tip+foodCost= bill
+cout<<fixed<<setprecision(2);
+cin>>tip;
+cout<<"\tTips total =$"<<serviceCost*tip/100<<endl;
+double bill=(((tip/100)*serviceCost)+serviceCost);
+cout<<"\tTotal Bill =$"<<bill<<endl;
+return 0;
+}
