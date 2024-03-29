@@ -1,0 +1,123 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+
+struct PlayerChar{
+    
+PlayerChar(string nameArg=" ",int strArg=0,int dextArg=0, int constArg=0,
+int intelArg=0,int wisArg=0,int charisArg=0);
+
+string name;
+int strength,dexterity,constitution,intelligence,wisdom,charisma,level;
+virtual void printCharInfo()=0;
+
+////sets up polymorphism accross structs
+};
+
+struct Fighter:public PlayerChar{
+    
+Fighter(string nameArg,int strArg,int dextArg, int constArg,int
+intelArg,int wisArg,int charisArg,string favWeapArg=" ");
+
+string favoriteWeapon;
+
+virtual void printCharInfo();
+};
+struct Mage: public PlayerChar{
+Mage(string nameArg,int strArg,int dextArg, int constArg, int intelArg,int
+wisArg,int charisArg,string favWeapArg=" ", string favSParg =" ");
+string favoriteSpell;
+virtual void printCharInfo();
+};
+struct Cleric: public PlayerChar{
+Cleric(string nameArg,int strArg,int dextArg, int constArg, int
+intelArg,int wisArg,int charisArg,string favWeapArg=" ",string favSParg=" ", string
+deiArg=" ");
+string deity;
+virtual void printCharInfo();
+};
+struct Thief: public PlayerChar{
+Thief(string nameArg,int strArg,int dextArg, int constArg, int intelArg,int
+wisArg,int charisArg,string favWeapArg="",string favSParg="",string
+deiArg="",string favskillArg=" ");
+string favoriteSkill;
+virtual void printCharInfo();
+};
+int main(){
+    
+    
+    
+    
+cout<<"\a____________________________________BATTLEWARRIORS__________________________________________"<<endl;
+
+vector<PlayerChar*>characters;
+characters.push_back(new Fighter("Kimbo Slice",7000,23,23,233,780,900,"thesehands"));
+characters.push_back(new Mage("Harry the wizzrd",232,33,44,33,33,22,"","turning people to frogs"));
+characters.push_back(new Cleric("Bobby b",43,55,33,22,33,4,""," ","Lebron James"));
+characters.push_back(new Thief("Kenny Powers ",23,22,33,111,22,33," "," ","","taking yo mom"));
+///calling function printCharInfo() using polymorphism
+for (int i=0; i<characters.size(); i++){
+characters[i]->printCharInfo();
+}
+delete characters.back();
+characters.pop_back();
+return 0;
+}
+PlayerChar::PlayerChar(string nameArg,int strArg,int dextArg, int constArg, int
+intelArg,int wisArg,int charisArg){
+name=nameArg;
+strength=strArg;
+dexterity=dextArg;
+constitution=constArg;
+intelligence=intelArg;
+wisdom=wisArg;
+charisma=charisArg;
+}
+//// /////////////////print function/////////////////
+void PlayerChar::printCharInfo(){
+cout<<"\nName: "<<name<<" Strength: "<<strength<<" Dexterity: "<<dexterity<<"Constitution: "<<constitution<<" Intelligence: "<<intelligence<<" Wisdom:"<<wisdom<<" Charisma: "<<charisma<<endl;
+}
+////////////////////fighter print/constructor implementation//////////////
+Fighter::Fighter(string nameArg,int strArg,int dextArg, int constArg,int
+intelArg,int wisArg,int charisArg,string favWeapArg): PlayerChar(nameArg, strArg,
+dextArg, constArg, intelArg, wisArg, charisArg){
+favoriteWeapon = favWeapArg;
+}
+void Fighter::printCharInfo(){
+PlayerChar::printCharInfo();
+cout<<"Favorite weapon: "<<favoriteWeapon<<endl;
+}
+///////////---------------mage constructor implementation/print----------/////////////////////
+Mage::Mage(string nameArg,int strArg,int dextArg, int constArg, int intelArg,int
+wisArg,int charisArg,string favWeapArg,string favSParg):PlayerChar(nameArg, strArg,
+dextArg, constArg, intelArg, wisArg, charisArg){
+favoriteSpell = favSParg;
+}
+void Mage::printCharInfo(){
+PlayerChar::printCharInfo();
+cout<<"Favorite spell: "<<favoriteSpell<<endl;
+}
+///////////--------------cleric constructor implementation/print----------/////////////////////
+Cleric::Cleric(string nameArg,int strArg,int dextArg, int constArg, int
+intelArg,int wisArg,int charisArg,string favWeapArg,string favSParg, string
+deiArg):PlayerChar(nameArg, strArg, dextArg, constArg, intelArg, wisArg, charisArg)
+{
+deity=deiArg;
+}
+void Cleric::printCharInfo(){
+PlayerChar::printCharInfo();
+cout<<"Deity: "<<deity<<endl;
+}
+//////////-----------------thief constructor implementation/print----------///////////////////////
+Thief::Thief(string nameArg,int strArg,int dextArg, int constArg, int intelArg,int
+wisArg,int charisArg,string favWeapArg,string favSParg, string deiArg,string
+favskillArg):PlayerChar(nameArg, strArg, dextArg, constArg, intelArg, wisArg,
+charisArg){
+favoriteSkill=favskillArg;
+}
+void Thief::printCharInfo(){
+PlayerChar::printCharInfo();
+cout<<"Favorite skill: "<<favoriteSkill<<endl;
+}
