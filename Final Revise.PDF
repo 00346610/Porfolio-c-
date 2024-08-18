@@ -1,0 +1,326 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <list>
+using namespace std;
+
+struct Loot{
+      string name;
+      int value;
+      
+
+        Loot(string arg1=" ", int arg2=0);
+        void virtual printLoot()=0;
+        void addLoot(Loot* object);
+        list<Loot*> item;
+          virtual ~Loot() {}///virtual destructor
+     
+};
+
+struct Shield: public Loot{
+      int bigwin,win;
+     
+          Shield(string argN,int argV, int wArg=0,int bwArg=0 );
+          void printLoot();
+};
+
+struct Gun: public Loot{
+        int megaDam,Dam;
+
+            Gun(string argE,int argV,int megDamArg=0,int damArg=0);
+            void printLoot();
+};
+
+struct Magicwand:public Loot{
+          int spelldamage;
+          string spell;
+              Magicwand(string argN,int argV,int spllDMArg=0 ,string spellArg=" ");
+          void printLoot();
+        
+};
+
+struct PlayerChar{
+        string job,name,characterTraits;
+        int level ,strength, dexterity, constitution, intelligence, wisdom,charisma;
+
+
+            PlayerChar(string jobArg="",string nameArg=" ", string traitsArg=" ",int levelArg=0,int strArg=0,int dexArg=0,int constArg=0,int intelArg=0,int wisArg=0,int rizArg=0);
+            list<Loot*> charLoot;
+         
+            void addLoot(Loot* object);
+            void printCharInfo();
+            void printAllLoot();
+};
+
+int rollDie(void);
+int generateStat(void);
+int firstChar(PlayerChar* arg);
+
+
+
+int main(){
+
+  
+ cout<<"************************    Dungeon and Dragons 2.0  ************************\n\n"<<endl;
+
+vector<PlayerChar*> myAvatar[26];
+  
+        PlayerChar* gandalf= new PlayerChar("Wizzard",  "Gandalf", "All white",1,2,3,4,5,6,7);
+  
+        PlayerChar* merlin = new PlayerChar("Wizzard ","Merlin ","Goofy Hat",1,2,3,4,5,6,7);
+  
+        PlayerChar* saruman = new PlayerChar("Wizzard","Saruman","tall/imposing",1,2,3,4,5,6,7);
+
+        PlayerChar* terry= new PlayerChar("Guard", "Terry Bowl ","vigilant",1,2,3,4,5,6,7 );
+  
+       PlayerChar* ladie= new PlayerChar("Guard","Harry Ladie","attentive",1,2,3,4,5,6,7);
+  
+        PlayerChar* barry= new PlayerChar("Guard","Barry Munch","doesn't sleep",1,2,3,4,5,6,7);
+
+  
+        PlayerChar* charming= new PlayerChar("Prince ","Prince Charming", "narcissistic",1,2,3,4,5,6,7); 
+  
+        PlayerChar* zuko= new PlayerChar("Prince ","Prince Zuko","fast/expert in fighting",1,2,3,4,5,6,7);
+  
+        PlayerChar* prince= new PlayerChar("Prince","Prince","diversity",1,2,3,4,5,6,7);
+
+        PlayerChar* anna= new PlayerChar("Mage","Anna Taylor","pay kings taxes",1,2,3,4,5,6,7);
+  
+        PlayerChar* dave= new PlayerChar("Mage","Dave Shepard","herd of sheep",1,2,3,4,5,6,7);
+  
+        PlayerChar* susan= new PlayerChar("Mage","Susan Theodore","bar tender",1,2,3,4,5,6,7);
+
+
+
+        int gandalfVal=firstChar(gandalf);
+        int merlinVal=firstChar(merlin);
+        int sarumanVal=firstChar(saruman);
+        int terryVal=firstChar(terry);
+        int ladieVal=firstChar(ladie);
+        int barryVal=firstChar(barry);
+        int charmingVal=firstChar(charming);
+        int zukoVal=firstChar(zuko);
+        int princeVal=firstChar(prince);
+        int annaVal=firstChar(anna);
+        int daveVal=firstChar(dave);
+        int susanVal=firstChar(susan);
+
+
+            myAvatar[gandalfVal].push_back(gandalf);
+            myAvatar[merlinVal].push_back(merlin);
+            myAvatar[sarumanVal].push_back(saruman);
+            myAvatar[terryVal].push_back(terry);
+            myAvatar[ladieVal].push_back(ladie);
+            myAvatar[barryVal].push_back(barry);
+            myAvatar[charmingVal].push_back(charming);
+            myAvatar[zukoVal].push_back(zuko);
+            myAvatar[princeVal].push_back(prince);
+            myAvatar[annaVal].push_back(anna); 
+            myAvatar[daveVal].push_back(dave);
+            myAvatar[susanVal].push_back(susan);
+   
+  
+list<Loot*> myLoot;
+  
+    gandalf-> addLoot(new Shield("Force field",330,300,600));
+    gandalf-> addLoot(new Gun("Mossberg 500",334,340,650));
+    gandalf-> addLoot(new Magicwand("Harry potter wand",500,589,"turn you into a clown"));
+
+    merlin->addLoot(new Shield("Human shield",400,300,900));
+    merlin->addLoot(new Gun("STG-44",400,500,780));
+    merlin->addLoot(new Magicwand("Snapes wand",400,700,"turns you to stone"));
+
+
+    saruman->addLoot(new Shield("NPC shield",400,330,700));
+    saruman->addLoot(new Gun("Mac-11",320,400,550));
+    saruman->addLoot(new Magicwand("Expo Marker Wand",321,434,"makes you lose the ability to speak"));
+  
+    terry->addLoot(new Gun("AR-15",700,1202,2000));
+    terry->addLoot(new Shield("Homemade shield",220,80,320));
+    terry->addLoot(new Magicwand("Crystal wand",434,500,"makes you run forever"));
+  
+    ladie->addLoot(new Gun("AA-12",1600,1500,3000));
+    ladie->addLoot(new Shield("Hylian Shield",400,200,500));
+    ladie->addLoot(new Magicwand("Element Wand",600,800,"control elements"));
+  
+    barry->addLoot(new Gun("MP-5",434,600,1200));
+    barry->addLoot(new Shield("Viking Shield",500,300,3334));
+    barry->addLoot(new Magicwand("Metalic Wand",500,700,"control metal base object"));
+  
+
+    charming->addLoot(new Magicwand("Invisible Magic Wand",330,890,"turns you into your mom"));
+    charming->addLoot(new Gun("SCAR",332,500,900));
+    charming->addLoot(new Shield("Halo Shield",700,1000,1500));
+
+  
+    zuko->addLoot(new Magicwand("Dual Weld Magic",333,600,"turns you blind"));
+    zuko->addLoot(new Gun("HK-G36",400,550,1000));
+    zuko->addLoot(new Shield("Riot Shield",1200,2333,2400));
+
+  
+    prince->addLoot(new Magicwand("Ice Wand",300,333,"telports you somewhere else"));
+    prince->addLoot(new Gun("Saiga 12",500,700,1300));
+    prince->addLoot(new Shield("Aegis",5000,7000,12000));
+
+    anna->addLoot(new Magicwand("Carbon fiber wand",322,433,"Makes opponents movement slow"));
+    anna->addLoot(new Gun("Mg-42",900,1200,1800));
+    anna->addLoot(new Shield("Native American shield",344,444,655 ));
+
+
+    dave->addLoot(new Magicwand("Pencil Wand ",900,150000,"erases anyone when pointed"));
+    dave->addLoot(new Gun("Colt 1911",500,1200,30000));
+    dave->addLoot(new Shield("Aztec shield",800,1200,2012));
+
+ 
+  
+  
+    susan->addLoot(new Magicwand("Paper wand",-322,533,"Makes you a not believer in magic"));
+    susan->addLoot(new Gun("M60",100,1400,2000));
+    susan->addLoot(new Shield("Samuri Shield",444,604,655 ));
+
+
+
+  
+  
+    
+  for (int i = 0;i < 26;i++) {
+        if (!myAvatar[i].empty()) {
+          for (int j = 0;j < myAvatar[i].size();j++) {
+  cout<< "\n---------------------"<<myAvatar[i][j]->job <<"-----------------------"<< endl;
+          myAvatar[i][j]->printCharInfo();
+          myAvatar[i][j]->printAllLoot();
+ 
+              }
+                  }
+
+                        }
+
+for (int i = 0; i < 26; ++i) {
+        for (int j = 0; j < myAvatar[i].size(); ++j) {
+            for (list<Loot*>::iterator it = myAvatar[i][j]->charLoot.begin(); it != myAvatar[i][j]->charLoot.end(); ++it) {
+                delete *it;
+            }
+            myAvatar[i][j]->charLoot.clear();
+            delete myAvatar[i][j];
+        }
+    }
+  
+
+
+  
+
+  return 0;
+}
+
+
+int firstChar(PlayerChar* arg){
+  char temp=tolower(arg->job[0]);
+  return (int(temp)-int('a'));
+}
+
+int rollDie(void){
+    return 1 + rand() % 6;
+}
+int generateStat(void){
+   return rollDie() + rollDie() + rollDie();
+}
+void PlayerChar::addLoot(Loot* object) {
+    charLoot.push_back(object);
+}
+
+
+
+//bool compareLootByValue(Loot* arg1, Loot* arg2) {
+   // return arg1->value > arg2->value;
+//}  
+
+void PlayerChar:: printCharInfo(){
+   
+
+  cout << "******************************************************" << endl;
+
+cout << "\nName: " << name << endl;
+cout << "Traits: " << characterTraits << endl;
+cout << "Dexterity: " << generateStat() << endl;
+cout << "Constituion: " << generateStat() << endl;
+cout << "Intellignace: " << generateStat() << endl;
+cout << "Wisdom: " << generateStat() << endl;
+cout << "Charisma: " << generateStat() << endl;
+
+
+    
+}
+///PlayerChar implementation
+PlayerChar::PlayerChar(string jobArg,string nameArg,string traitsArg,int levelArg, int strArg,int dexArg,int constArg,int intelArg,int wisArg,int rizArg){
+  job=jobArg;
+  name=nameArg;
+  characterTraits=traitsArg;
+  level=levelArg;
+  strength=strArg;
+  dexterity=dexArg;
+  constitution=constArg;
+  intelligence=intelArg;
+  wisdom=wisArg;
+  charisma=rizArg;
+}
+
+void PlayerChar::printAllLoot() {
+    cout << "Loot for " << name << ":" << endl;
+    for (list<Loot*>::iterator itLoot = charLoot.begin(); itLoot != charLoot.end(); ++itLoot) {
+        (*itLoot)->printLoot();
+    }
+}
+
+////loot implementation
+ Loot:: Loot(string arg1, int arg2){
+         name=arg1;
+         value=arg2;
+       }
+
+      void Loot:: printLoot() {
+        cout<<"\n\n Loadout : "<<name<<". "<<value<<" character build points  gained "<<endl;
+       
+      }
+
+//////Gun implementation
+Gun::Gun(string argN,int argV, int damArg,int megDamArg):Loot(argN,argV){
+        megaDam=megDamArg;
+        Dam=damArg;
+      }
+
+void Gun:: printLoot(){
+     Loot::printLoot();
+          cout<<"\t\t*****Key "<<name<<" attributes ****: "<<endl;
+        cout<<"\t\tThey lose: "<<value<<endl;
+        cout<<"\t\tYou have the standard rounds your  damage is:  "<<Dam<<endl;
+        cout<<"\t\tYou have explosive rounds: "<<megaDam<<endl;
+      }
+
+
+////shield  implementartion
+Shield::Shield(string argN,int argV,int wArg,int bwArg):Loot(argN,argV){
+            win=wArg;
+            bigwin=bwArg;
+          }
+  void Shield ::printLoot(){
+      Loot::printLoot();
+        cout<<"\n\t Shield type: "<<name<<endl;
+        
+        cout<<"\n\t When  your opponent hits you: "<<win<<" points won!!"<<endl;
+        cout<<"\n\t When they attack they lose: "<<bigwin<<" on their attack points!!"<<endl;
+       
+        }
+
+//////magicWand contrustor and implementation
+  Magicwand::Magicwand(string argN,int argV,int spllDMArg,string spellArg):Loot(argN,argV){
+        spell=spellArg;   
+         spelldamage=spllDMArg;
+         }
+        
+  void Magicwand:: printLoot(){
+            Loot::printLoot();
+          cout<<"\n\t Your spell: "<<spell<<endl;
+          cout<<"\n\t Total enemy damage: "<<spelldamage<<" points"<<endl;
+        }
+
